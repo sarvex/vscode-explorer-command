@@ -20,7 +20,7 @@ root = os.path.dirname(os.path.dirname(__file__))
 out_dir = os.path.join(root, 'out')
 pkg_type = sys.argv[1]
 arch = sys.argv[2]
-pkg_dir = os.path.join(out_dir, pkg_type + '_explorer_pkg_' + arch)
+pkg_dir = os.path.join(out_dir, f'{pkg_type}_explorer_pkg_{arch}')
 
 # Create output directory.
 os.mkdir(pkg_dir)
@@ -29,8 +29,9 @@ os.mkdir(pkg_dir)
 manifest = os.path.join(root, 'template', 'AppxManifest.xml')
 with open(manifest, 'r') as f:
   content = f.read()
-  content = content.replace('@@PackageDLL@@', pkg_type + '_explorer_command.dll')
-  content = content.replace('@@PackageDescription@@', pkg_type + ' context menu handler')
+  content = content.replace('@@PackageDLL@@', f'{pkg_type}_explorer_command.dll')
+  content = content.replace('@@PackageDescription@@',
+                            f'{pkg_type} context menu handler')
   if pkg_type == 'code':
     content = content.replace('@@PackageName@@', 'Microsoft.VSCode')
     content = content.replace('@@PackageDisplayName@@', 'Visual Studio Code')
